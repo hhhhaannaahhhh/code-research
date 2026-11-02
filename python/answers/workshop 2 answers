@@ -1,0 +1,401 @@
+part 1:
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 21 14:06:11 2025
+
+
+
+@author: haf31
+
+"""
+
+import cv2 as cv 
+
+from matplotlib import pyplot as plt 
+
+
+
+img = cv.imread('barbilophozia_floerkei_cells_895150.jpg', cv.IMREAD_GRAYSCALE)
+
+
+
+row = img[150, :]
+
+
+
+fig, ax = plt.subplots()
+
+ax.plot(row)
+
+ax.set(ylim=(0,255))
+
+plt.show()
+
+
+
+part 2:
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 21 14:06:11 2025
+
+
+
+@author: haf31
+
+"""
+
+import cv2 as cv 
+
+from matplotlib import pyplot as plt 
+
+
+
+img = cv.imread('barbilophozia_floerkei_cells_895150.jpg', cv.IMREAD_GRAYSCALE)
+
+
+
+blur = cv.blur(img,(5,5))
+
+
+
+# got from openCV
+
+plt.subplot(121),plt.imshow(img),plt.title('Original')
+
+plt.xticks([]), plt.yticks([])
+
+plt.subplot(122),plt.imshow(blur),plt.title('Blurred')
+
+plt.xticks([]), plt.yticks([])
+
+plt.show()
+
+
+
+^^ kernel size 5,5 didn't really show any blur 25, 25 was good
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 21 14:06:11 2025
+
+
+
+@author: haf31
+
+"""
+
+import cv2 as cv 
+
+from matplotlib import pyplot as plt 
+
+
+
+img = cv.imread('barbilophozia_floerkei_cells_895150.jpg', cv.IMREAD_GRAYSCALE)
+
+
+
+
+
+blur = cv.medianBlur(img,25)
+
+
+
+# got from openCV
+
+plt.subplot(121),plt.imshow(img),plt.title('Original')
+
+plt.xticks([]), plt.yticks([])
+
+plt.subplot(122),plt.imshow(blur),plt.title('Blurred')
+
+plt.xticks([]), plt.yticks([])
+
+plt.show()
+
+
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 21 14:06:11 2025
+
+
+
+@author: haf31
+
+"""
+
+import cv2 as cv 
+
+from matplotlib import pyplot as plt 
+
+
+
+img = cv.imread('barbilophozia_floerkei_cells_895150.jpg', cv.IMREAD_GRAYSCALE)
+
+
+
+
+
+blur = cv.GaussianBlur(img,(3,3), 1)
+
+
+
+# got from openCV
+
+plt.subplot(121),plt.imshow(img),plt.title('Original')
+
+plt.xticks([]), plt.yticks([])
+
+plt.subplot(122),plt.imshow(blur),plt.title('Blurred')
+
+plt.xticks([]), plt.yticks([])
+
+plt.show()
+
+
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 21 14:06:11 2025
+
+
+
+@author: haf31
+
+"""
+
+import cv2 as cv 
+
+from matplotlib import pyplot as plt 
+
+
+
+img = cv.imread('barbilophozia_floerkei_cells_895150.jpg', cv.IMREAD_GRAYSCALE)
+
+
+
+
+
+blur = cv.Sobel(img, cv.CV_64F, 0, 1, 3)
+
+
+
+# got from openCV
+
+plt.subplot(121),plt.imshow(img),plt.title('Original')
+
+plt.xticks([]), plt.yticks([])
+
+plt.subplot(122),plt.imshow(blur),plt.title('Blurred')
+
+plt.xticks([]), plt.yticks([])
+
+plt.show()
+
+
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 21 14:06:11 2025
+
+
+
+@author: haf31
+
+"""
+
+import cv2 as cv 
+
+from matplotlib import pyplot as plt 
+
+
+
+img = cv.imread('barbilophozia_floerkei_cells_895150.jpg', cv.IMREAD_GRAYSCALE)
+
+
+
+
+
+blur = cv.Laplacian(img, cv.CV_64F)
+
+
+
+# got from openCV
+
+plt.subplot(121),plt.imshow(img),plt.title('Original')
+
+plt.xticks([]), plt.yticks([])
+
+plt.subplot(122),plt.imshow(blur),plt.title('Blurred')
+
+plt.xticks([]), plt.yticks([])
+
+plt.show()
+
+
+
+part 3:
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 21 14:06:11 2025
+
+
+
+@author: haf31
+
+"""
+
+import cv2 as cv 
+
+import sys
+
+
+
+cv.namedWindow('result')
+
+img = cv.imread('cacti.jpg', cv.IMREAD_GRAYSCALE)
+
+
+
+if img is None:
+
+  sys.exit("Could not read the image.")
+
+   
+
+#create trackbars
+
+def nothing(x):
+
+  pass
+
+
+
+# create trackbars for modding threshold values
+
+cv.createTrackbar('Lower Threshold','result',0,255,nothing)
+
+cv.createTrackbar('Higher Threshold','result',0,255,nothing)
+
+
+
+result = img
+
+while(1):
+
+  cv.imshow('result',result)
+
+  k = cv.waitKey(1) & 0xFF
+
+  if k == 27:
+
+    break
+
+   
+
+  # read the trackbars into the canny fucntion
+
+  thres1 = cv.getTrackbarPos('Lower Threshold','result')
+
+  thres2 = cv.getTrackbarPos('Higher Threshold','result')
+
+  result = cv.Canny(img,thres1,thres2)
+
+   
+
+cv.destroyAllWindows()
+
+
+
+part 4:
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 21 14:06:11 2025
+
+ 
+
+@author: haf31
+
+"""
+
+import numpy as np
+
+import cv2 as cv
+
+ 
+
+img = cv.imread('cacti.jpg')
+
+assert img is not None, "file could not be read, check with os.path.exists()"
+
+img = cv.blur(img,(5,5))
+
+ 
+
+b,g,r = cv.split(img)
+
+result = cv.merge((b,g,r))
+
+cimg = cv.cvtColor(result,cv.COLOR_BGR2HSV)
+
+ 
+
+green_lower = np.array([30, 10, 10])
+
+green_upper = np.array([140, 200, 200])
+
+ 
+
+thresh = cv.inRange(cimg, green_lower,green_upper)
+
+ 
+
+count = cv.countNonZero(thresh)
+
+ 
+
+circles = cv.HoughCircles(img,cv.HOUGH_GRADIENT,1,30,
+
+                           param1=50,param2=30,minRadius=15,maxRadius=35)
+
+ 
+
+circles = np.uint16(np.around(circles))
+
+for i in circles[0,:]:
+
+   # draw the outer circle
+
+   cv.circle(cimg,(i[0],i[1]),i[2],(0,255,0),2)
+
+   # draw the center of the circle
+
+   cv.circle(cimg,(i[0],i[1]),2,(0,0,255),3)
+
+ 
+
+cv.imshow('detected circles',cimg)
+
+cv.waitKey(0)
+
+cv.destroyAllWindows()

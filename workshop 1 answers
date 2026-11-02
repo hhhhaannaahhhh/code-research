@@ -1,0 +1,306 @@
+Part 3:
+
+changed the result to the different equations to see the different images of the sun
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 14 14:11:02 2025
+
+
+
+@author: haf31
+
+"""
+
+
+
+import cv2
+
+img1 = cv2.imread("Taking_the_Sun_s_temperature_10k.png")
+
+img2 = cv2.imread("Taking_the_Sun_s_temperature_32k.png")
+
+img3 = cv2.imread("Taking_the_Sun_s_temperature_320k.png")
+
+img4 = cv2.imread("Taking_the_Sun_s_temperature_630k.png")
+
+
+
+result= img1 + 25
+
+
+
+cv2.imshow("img",result)
+
+
+
+print("type", str(result.dtype))
+
+
+
+cv2.waitKey(0)
+
+cv2.destroyAllWindows()
+
+
+
+blob:
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 14 14:11:02 2025
+
+
+
+@author: haf31
+
+"""
+
+
+
+import cv2
+
+img1 = cv2.imread("Taking_the_Sun_s_temperature_10k.png")
+
+img2 = cv2.imread("Taking_the_Sun_s_temperature_32k.png")
+
+img3 = cv2.imread("Taking_the_Sun_s_temperature_320k.png")
+
+img4 = cv2.imread("Taking_the_Sun_s_temperature_630k.png")
+
+
+
+input_shape =( 300, 300)
+
+mean = (127.5, 127.5, 127.5)
+
+scale = 0.007843
+
+
+
+blob = cv2.dnn.blobFromImage(img1, scalefactor=scale, \
+
+              size = input_shape, mean=mean, swapRB=True)
+
+blob = blob.transpose([0,2,3,1])[0]
+
+
+
+cv2.imshow("Blob", blob)
+
+cv2.waitKey(0)
+
+cv2.destroyAllWindows()
+
+
+
+imgmask:
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 14 14:11:02 2025
+
+
+
+@author: haf31
+
+"""
+
+
+
+import cv2
+
+img1 = cv2.imread("Taking_the_Sun_s_temperature_10k.png")
+
+img2 = cv2.imread("Taking_the_Sun_s_temperature_32k.png")
+
+img3 = cv2.imread("Taking_the_Sun_s_temperature_320k.png")
+
+img4 = cv2.imread("Taking_the_Sun_s_temperature_630k.png")
+
+imgmask = cv2.imread("Taking_the_Sun_s_temperature_mask.png", cv2.IMREAD_GRAYSCALE)
+
+imgmask2 = cv2.imread("Taking_the_Sun_s_temperature_mask2.png")
+
+
+
+ret,imgmask = cv2.threshold(imgmask,245,255,cv2.THRESH_BINARY)
+
+
+
+result = cv2.bitwise_and(img1, img4, mask = imgmask)
+
+cv2.imshow("result", result)
+
+cv2.waitKey(0)
+
+cv2.destroyAllWindows()
+
+
+
+Part 4:
+
+this came out with a really pretty result:
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 14 14:11:02 2025
+
+
+
+@author: haf31
+
+"""
+
+
+
+import cv2
+
+img1 = cv2.imread("Taking_the_Sun_s_temperature_10k.png", cv2.IMREAD_GRAYSCALE)
+
+img2 = cv2.imread("Taking_the_Sun_s_temperature_32k.png", cv2.IMREAD_GRAYSCALE)
+
+img3 = cv2.imread("Taking_the_Sun_s_temperature_320k.png", cv2.IMREAD_GRAYSCALE)
+
+img4 = cv2.imread("Taking_the_Sun_s_temperature_630k.png", cv2.IMREAD_GRAYSCALE)
+
+imgmask = cv2.imread("Taking_the_Sun_s_temperature_mask.png", cv2.IMREAD_GRAYSCALE)
+
+imgmask2 = cv2.imread("Taking_the_Sun_s_temperature_mask2.png", cv2.IMREAD_GRAYSCALE)
+
+
+
+r = img4
+
+g = img3
+
+b = img2
+
+
+
+result = cv2.merge((b,g,r))
+
+
+
+cv2.imshow("result", result)
+
+cv2.waitKey(0)
+
+cv2.destroyAllWindows()
+
+
+
+imghsv:
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 14 14:11:02 2025
+
+
+
+@author: haf31
+
+"""
+
+
+
+import cv2
+
+img1 = cv2.imread("Taking_the_Sun_s_temperature_10k.png", cv2.IMREAD_GRAYSCALE)
+
+img2 = cv2.imread("Taking_the_Sun_s_temperature_32k.png", cv2.IMREAD_GRAYSCALE)
+
+img3 = cv2.imread("Taking_the_Sun_s_temperature_320k.png", cv2.IMREAD_GRAYSCALE)
+
+img4 = cv2.imread("Taking_the_Sun_s_temperature_630k.png", cv2.IMREAD_GRAYSCALE)
+
+imgmask = cv2.imread("Taking_the_Sun_s_temperature_mask.png", cv2.IMREAD_GRAYSCALE)
+
+imgmask2 = cv2.imread("Taking_the_Sun_s_temperature_mask2.png", cv2.IMREAD_GRAYSCALE)
+
+
+
+r = img4
+
+g = img3
+
+b = img2
+
+
+
+result = cv2.merge((b,g,r))
+
+
+
+imghsv = cv2.cvtColor(result, cv2.COLOR_BGR2HSV)
+
+cv2.imshow("result", imghsv)
+
+cv2.waitKey(0)
+
+cv2.destroyAllWindows()
+
+
+
+imglab:
+
+# -*- coding: utf-8 -*-
+
+"""
+
+Created on Tue Oct 14 14:11:02 2025
+
+
+
+@author: haf31
+
+"""
+
+
+
+import cv2
+
+img1 = cv2.imread("Taking_the_Sun_s_temperature_10k.png", cv2.IMREAD_GRAYSCALE)
+
+img2 = cv2.imread("Taking_the_Sun_s_temperature_32k.png", cv2.IMREAD_GRAYSCALE)
+
+img3 = cv2.imread("Taking_the_Sun_s_temperature_320k.png", cv2.IMREAD_GRAYSCALE)
+
+img4 = cv2.imread("Taking_the_Sun_s_temperature_630k.png", cv2.IMREAD_GRAYSCALE)
+
+imgmask = cv2.imread("Taking_the_Sun_s_temperature_mask.png", cv2.IMREAD_GRAYSCALE)
+
+imgmask2 = cv2.imread("Taking_the_Sun_s_temperature_mask2.png", cv2.IMREAD_GRAYSCALE)
+
+
+
+r = img4
+
+g = img3
+
+b = img2
+
+
+
+result = cv2.merge((b,g,r))
+
+
+
+imglab = cv2.cvtColor(result, cv2.COLOR_BGR2LAB)
+
+cv2.imshow("result", imglab)
+
+cv2.waitKey(0)
+
+cv2.destroyAllWindows()
+
